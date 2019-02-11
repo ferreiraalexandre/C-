@@ -10,107 +10,107 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class ClientController : Controller
+    public class ProviderController : Controller
     {
         private DBContext db = new DBContext();
 
-        // GET: Client
+        // GET: Provider
         public ActionResult Index()
         {
-            return View(db.Client.ToList());
+            return View(db.Provider.ToList());
         }
 
-        // GET: Client/Details/5
+        // GET: Provider/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
-            if (client == null)
+            Provider provider = db.Provider.Find(id);
+            if (provider == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(provider);
         }
 
-        // GET: Client/Create
+        // GET: Provider/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Client/Create
+        // POST: Provider/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClientId,Name,State,City,Neighborhood")] Client client)
+        public ActionResult Create([Bind(Include = "ProviderId,Name,State,City")] Provider provider)
         {
             if (ModelState.IsValid)
             {
-                db.Client.Add(client);
+                db.Provider.Add(provider);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(client);
+            return View(provider);
         }
 
-        // GET: Client/Edit/5
+        // GET: Provider/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
-            if (client == null)
+            Provider provider = db.Provider.Find(id);
+            if (provider == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(provider);
         }
 
-        // POST: Client/Edit/5
+        // POST: Provider/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClientId,Name,State,City,Neighborhood")] Client client)
+        public ActionResult Edit([Bind(Include = "ProviderId,Name,State,City")] Provider provider)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified;
+                db.Entry(provider).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(client);
+            return View(provider);
         }
 
-        // GET: Client/Delete/5
+        // GET: Provider/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
-            if (client == null)
+            Provider provider = db.Provider.Find(id);
+            if (provider == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(provider);
         }
 
-        // POST: Client/Delete/5
+        // POST: Provider/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Client client = db.Client.Find(id);
-            db.Client.Remove(client);
+            Provider provider = db.Provider.Find(id);
+            db.Provider.Remove(provider);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

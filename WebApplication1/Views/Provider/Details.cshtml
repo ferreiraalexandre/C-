@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.Client
+﻿@model WebApplication1.Models.Provider
 
 @{
     ViewBag.Title = "Details";
@@ -7,7 +7,7 @@
 <h2>Detalhar</h2>
 
 <div>
-    <h4>Cliente</h4>
+    <h4>Fornecedor</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -34,17 +34,9 @@
             @Html.DisplayFor(model => model.City)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Neighborhood)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Neighborhood)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ClientId }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ProviderId }, new { @class = "btn btn-warning"}) |
     @Html.ActionLink("Retornar", "Index")
 </p>

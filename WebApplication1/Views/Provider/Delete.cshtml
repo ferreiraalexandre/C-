@@ -1,13 +1,14 @@
-﻿@model WebApplication1.Models.Client
+﻿@model WebApplication1.Models.Provider
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Delete";
 }
 
-<h2>Detalhar</h2>
+<h2>Deletar</h2>
 
+<h3>Tem certeza de que deseja excluir?</h3>
 <div>
-    <h4>Cliente</h4>
+    <h4>Fornecedor</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -34,17 +35,14 @@
             @Html.DisplayFor(model => model.City)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Neighborhood)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Neighborhood)
-        </dd>
-
     </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-default" /> |
+            @Html.ActionLink("Retornar", "Index")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ClientId }, new { @class = "btn btn-warning" }) |
-    @Html.ActionLink("Retornar", "Index")
-</p>

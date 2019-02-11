@@ -10,107 +10,112 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class ClientController : Controller
+    public class ServiceProvidedController : Controller
     {
         private DBContext db = new DBContext();
 
-        // GET: Client
+        // GET: ServiceProvided
         public ActionResult Index()
         {
-            return View(db.Client.ToList());
+            var serviceProvided = db.ServiceProvided.Include(s => s.Client);
+            return View(serviceProvided.ToList());
         }
 
-        // GET: Client/Details/5
+        // GET: ServiceProvided/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
-            if (client == null)
+            ServiceProvided serviceProvided = db.ServiceProvided.Find(id);
+            if (serviceProvided == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(serviceProvided);
         }
 
-        // GET: Client/Create
+        // GET: ServiceProvided/Create
         public ActionResult Create()
         {
+            ViewBag.ClientId = new SelectList(db.Client, "ClientId", "Name");
             return View();
         }
 
-        // POST: Client/Create
+        // POST: ServiceProvided/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClientId,Name,State,City,Neighborhood")] Client client)
+        public ActionResult Create([Bind(Include = "Id,Description,Date,Value,Type,ClientId")] ServiceProvided serviceProvided)
         {
             if (ModelState.IsValid)
             {
-                db.Client.Add(client);
+                db.ServiceProvided.Add(serviceProvided);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(client);
+            ViewBag.ClientId = new SelectList(db.Client, "ClientId", "Name", serviceProvided.ClientId);
+            return View(serviceProvided);
         }
 
-        // GET: Client/Edit/5
+        // GET: ServiceProvided/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
-            if (client == null)
+            ServiceProvided serviceProvided = db.ServiceProvided.Find(id);
+            if (serviceProvided == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            ViewBag.ClientId = new SelectList(db.Client, "ClientId", "Name", serviceProvided.ClientId);
+            return View(serviceProvided);
         }
 
-        // POST: Client/Edit/5
+        // POST: ServiceProvided/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClientId,Name,State,City,Neighborhood")] Client client)
+        public ActionResult Edit([Bind(Include = "Id,Description,Date,Value,Type,ClientId")] ServiceProvided serviceProvided)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified;
+                db.Entry(serviceProvided).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(client);
+            ViewBag.ClientId = new SelectList(db.Client, "ClientId", "Name", serviceProvided.ClientId);
+            return View(serviceProvided);
         }
 
-        // GET: Client/Delete/5
+        // GET: ServiceProvided/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
-            if (client == null)
+            ServiceProvided serviceProvided = db.ServiceProvided.Find(id);
+            if (serviceProvided == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(serviceProvided);
         }
 
-        // POST: Client/Delete/5
+        // POST: ServiceProvided/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Client client = db.Client.Find(id);
-            db.Client.Remove(client);
+            ServiceProvided serviceProvided = db.ServiceProvided.Find(id);
+            db.ServiceProvided.Remove(serviceProvided);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

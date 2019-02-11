@@ -1,18 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
     public class ServiceProvided
     {
-        [Key]
-        public long id { get; set; }
-        public string Description { get; set; }
-        public string Date { get; set; }
-        public string Value { get; set; }
-        public string Type { get; set; }
+        public long Id {get; set; }
+
+        [Display(Name = "Descrição do serviço")]
+        public string Description {get; set; }
+
+        [Display(Name = "Data de atedimento")]
+        public DateTime Date {get; set; }
+
+        [Display(Name = "Valor do serviço")]
+        public decimal Value {get; set; }
+
+        [Display(Name = "Tipo de serviço")]
+        public string Type {get; set; }
+
+        public long ClientId {get; set; }
+
+        [ForeignKey("ClientId")]
+        [Display(Name = "Cliente")]
+        public virtual Client Client {get; set; }
     }
 }
